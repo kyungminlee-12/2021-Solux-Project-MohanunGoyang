@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mohanun_goyang/provider/join_or_login_notifier.dart';
+import 'package:mohanun_goyang/screen/home_screen.dart';
 import 'package:mohanun_goyang/screen/main_screen.dart';
 import 'package:mohanun_goyang/screen/auth_screen.dart';
+import 'package:mohanun_goyang/widget/bottom_bar.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
@@ -34,30 +36,23 @@ class Splash extends StatelessWidget {
               child: AuthScreen(),
             );
           } else {
+            // return MyHomePage(title: '모하는고양', email: snapshot.data!.email);
             return DefaultTabController(
-        length: 4,   // tab 간의 길이 
-        child: Scaffold(
-          body: TabBarView(
-            // 사용자가 직접 손가락으로 스크롤 하는 것 막음 
-            physics: NeverScrollableScrollPhysics(), 
-            children: <Widget> [
-              HomeScreen(),
-              //Container(),
-              Container(),
-              Container(),
-              Container(),
-              // HomeScreen(),
-              // Container(child: Center(child: Text('home'),),),
-              // Container(child: Center(child: Text('search'),),),
-              // Container(child: Center(child: Text('save'),),),
-              // Container(child: Center(child: Text('more'),),),
-              // MoreScreen(),
-            ],
-          ),
-          bottomNavigationBar: Bottom(),  // widget 폴더 안에다 bottom 코딩하기 
-        ),
-      ),
-    );
+              length: 4, // tab 간의 길이
+              child: Scaffold(
+                body: TabBarView(
+                  // 사용자가 직접 손가락으로 스크롤 하는 것 막음
+                  physics: NeverScrollableScrollPhysics(),
+                  children: <Widget>[
+                    HomeScreen(),
+                    Container(),
+                    Container(),
+                    Container(),
+                  ],
+                ),
+                bottomNavigationBar: Bottom(), // widget 폴더 안에다 bottom 코딩하기
+              ),
+            );
           }
         });
   }
