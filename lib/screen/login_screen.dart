@@ -1,25 +1,20 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mohanun_goyang/provider/page_notifier.dart';
+import 'package:mohanun_goyang/provider/join_or_login_notifier.dart';
 import 'package:provider/provider.dart';
 
-class AuthScreen extends Page {
-  static final pageName = 'AuthScreen';
+class AuthScreen extends StatefulWidget {
+  AuthScreen({Key? key}) : super(key: key);
 
   @override
-  Route createRoute(BuildContext context) {
-    return MaterialPageRoute(
-        settings: this, builder: (context) => LoginScreen());
-  }
+  _AuthScreenState createState() => _AuthScreenState();
 }
 
-class LoginScreen extends StatefulWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class _AuthScreenState extends State<AuthScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
@@ -27,71 +22,270 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // final double statusBarHeight = MediaQuery.of(context).padding.top;
+    final Size size = MediaQuery.of(context).size;
+
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Padding(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        // resizeToAvoidBottomInset: false,
+        body: Stack(
+      alignment: Alignment.center,
+      children: [
+        Container(
+          color: Colors.white,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Email',
-                hintText: 'Enter your email',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            _logoImage,
+            Stack(
+              children: [
+                _inputForm(size),
+                _authButton(size),
+                // Container(
+                //   width: 100,
+                //   height: 50,
+                //   color: Colors.black,
+                // ),
+              ],
+            ),
+            SizedBox(
+              height: size.height * 0.1,
+            ),
+            Consumer<JoinOrLogin>(
+              builder: (context, joinOrLogin, child) => GestureDetector(
+                onTap: () {
+                  joinOrLogin.toggle();
+                },
+                child: Text(
+                  joinOrLogin.isJoin
+                      ? "Already Have an Accout? Sign in"
+                      : "Don't Have an Accout? Create One",
+                  style: TextStyle(
+                      color: joinOrLogin.isJoin ? Colors.red : Colors.blue),
                 ),
               ),
-              keyboardType: TextInputType.emailAddress,
             ),
             SizedBox(
-              height: 15.0,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Password',
-                hintText: 'Enter your password',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                ),
-              ),
-              keyboardType: TextInputType.visiblePassword,
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(50),
-              ),
-              child: Text('Sign In'),
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            OutlinedButton(
-              onPressed: () {},
-              style: OutlinedButton.styleFrom(
-                minimumSize: const Size.fromHeight(50),
-              ),
-              child: Text('Sign Up'),
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            OutlinedButton(
-              onPressed: () {
-                Provider.of<PageNotifier>(context, listen: false).goToMain();
-              },
-              style: OutlinedButton.styleFrom(
-                minimumSize: const Size.fromHeight(50),
-              ),
-              child: Text('Forget Password'),
+              height: size.height * 0.05,
             ),
           ],
         ),
-        padding: EdgeInsets.all(20.0),
+      ],
+    ));
+  }
+
+  void _register(BuildContext context) async {
+    final AuthResult result = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+            email: _emailController.text, password: _passwordController.text);
+    final FirebaseUser user = result.user;
+
+    if (user == null) {
+      final snacBar = SnackBar(
+        content: Text("Please try again later."),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: snacBar));
+    }
+  }
+
+  void _login(BuildContext context) async {
+    final AuthResult result = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+            email: _emailController.text, password: _passwordController.text);
+    final FirebaseUser user = result.user;
+
+    if (user == null) {
+      final snacBar = SnackBar(
+        content: Text("Please try again later."),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: snacBar));
+    }
+  }
+
+  Widget get _logoImage => Expanded(
+        child: Padding(
+          padding: EdgeInsets.only(top: 120, bottom: 20, left: 40, right: 40),
+          child: FittedBox(
+            fit: BoxFit.contain,
+            child: CircleAvatar(
+              backgroundImage: AssetImage("assets/image.jpeg"),
+            ),
+          ),
+        ),
+      );
+
+  Widget _authButton(Size size) {
+    return Positioned(
+      left: size.width * 0.1,
+      right: size.width * 0.1,
+      bottom: 0,
+      child: Consumer<JoinOrLogin>(
+        builder: (context, joinOrLogin, child) => ElevatedButton(
+            child: Text(
+              joinOrLogin.isJoin ? "Join" : "Login",
+              style: TextStyle(fontSize: 16),
+            ),
+            style: ElevatedButton.styleFrom(
+              primary: joinOrLogin.isJoin ? Colors.red : Colors.blue,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
+            ),
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                joinOrLogin.isJoin ? _register(context) : _login(context);
+              }
+            }),
       ),
     );
   }
+
+  Widget _inputForm(Size size) {
+    return Padding(
+      padding: EdgeInsets.all(size.width * 0.05),
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        elevation: 6,
+        child: Padding(
+          padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 32),
+          child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextFormField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                        icon: Icon(Icons.account_circle), labelText: "Email"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please input correct email.";
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    obscureText: true,
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                        icon: Icon(Icons.vpn_key), labelText: "Password"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please input correct password.";
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: size.height * 0.01,
+                  ),
+                  Consumer<JoinOrLogin>(
+                    builder: (context, joinOrLogin, child) => Opacity(
+                        opacity: joinOrLogin.isJoin ? 0 : 1,
+                        child: Text("Forgot Password")),
+                  ),
+                ],
+              )),
+        ),
+      ),
+    );
+  }
+  // @override
+  // Widget build(BuildContext context) {
+  //   final double statusBarHeight = MediaQuery.of(context).padding.top;
+  //   final double Height = MediaQuery.of(context).size.height;
+
+  //   return Scaffold(
+  //     resizeToAvoidBottomInset: false,
+  //     body: Padding(
+  //       child: Column(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           Form(
+  //             key: _formKey,
+  //             child: Column(
+  //               children: [
+  //                 TextFormField(
+  //                   controller: _emailController,
+  //                   decoration: const InputDecoration(
+  //                     labelText: 'Email',
+  //                     hintText: 'Enter your email',
+  //                     border: OutlineInputBorder(
+  //                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
+  //                     ),
+  //                   ),
+  //                   validator: (value) {
+  //                     if (value == null || value.isEmpty) {
+  //                       return "Please input correct email.";
+  //                     }
+  //                     return null;
+  //                   },
+  //                   keyboardType: TextInputType.emailAddress,
+  //                 ),
+  //                 SizedBox(
+  //                   height: Height * 0.02,
+  //                 ),
+  //                 TextFormField(
+  //                   obscureText: true,
+  //                   controller: _passwordController,
+  //                   decoration: const InputDecoration(
+  //                     labelText: 'Password',
+  //                     hintText: 'Enter your password',
+  //                     border: OutlineInputBorder(
+  //                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
+  //                     ),
+  //                   ),
+  //                   validator: (value) {
+  //                     if (value == null || value.isEmpty) {
+  //                       return "Please input correct password.";
+  //                     }
+  //                     return null;
+  //                   },
+  //                   keyboardType: TextInputType.visiblePassword,
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //           SizedBox(
+  //             height: Height * 0.025,
+  //           ),
+  //           ElevatedButton(
+  //             onPressed: () {
+  //               if (_formKey.currentState!.validate()) {}
+  //             },
+  //             style: ElevatedButton.styleFrom(
+  //               minimumSize: const Size.fromHeight(50),
+  //             ),
+  //             child: Text('Sign In'),
+  //           ),
+  //           SizedBox(
+  //             height: Height * 0.01,
+  //           ),
+  //           OutlinedButton(
+  //             onPressed: () {
+  //               Provider.of<JoinOrLogin>(context).toggle();
+  //             },
+  //             style: OutlinedButton.styleFrom(
+  //               minimumSize: const Size.fromHeight(50),
+  //             ),
+  //             child: Text('Sign Up'),
+  //           ),
+  //           SizedBox(
+  //             height: Height * 0.01,
+  //           ),
+  //           OutlinedButton(
+  //             onPressed: () {
+  //               Provider.of<PageNotifier>(context, listen: false).goToMain();
+  //             },
+  //             style: OutlinedButton.styleFrom(
+  //               minimumSize: const Size.fromHeight(50),
+  //             ),
+  //             child: Text('Forget Password'),
+  //           ),
+  //         ],
+  //       ),
+  //       padding: EdgeInsets.all(20.0),
+  //     ),
+  //   );
+  // }
 }

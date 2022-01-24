@@ -1,5 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mohanun_goyang/provider/page_notifier.dart';
+import 'package:mohanun_goyang/provider/join_or_login_notifier.dart';
 import 'package:mohanun_goyang/screen/main_screen.dart';
 import 'package:mohanun_goyang/screen/login_screen.dart';
 import 'package:provider/provider.dart';
@@ -15,32 +16,26 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => PageNotifier())],
-      child: MaterialApp(
-        title: 'MohanunGoyang',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(primaryColor: Colors.white),
-        home: Consumer<PageNotifier>(
-          builder: (context, pageNotifier, child) {
-            return Navigator(
-              pages: [
-                MaterialPage(
-                    key: ValueKey(MyHomePage.pageName),
-                    child: const MyHomePage(title: 'mohanun_goyayng')),
-                if (pageNotifier.currentPage == AuthScreen.pageName)
-                  AuthScreen(),
-              ],
-              onPopPage: (route, result) {
-                if (!route.didPop(result)) {
-                  return false;
-                }
-                return true;
-              },
-            );
-          },
-        ),
-      ),
+    return MaterialApp(
+      home: Splash(),
     );
+  }
+}
+
+class Splash extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<FirebaseUser>(
+        stream: FirebaseAuth.instance.onAuthStateChanged,
+        builder: (context, snapshot) {
+          if (snapshot.data == null) {
+            return ChangeNotifierProvider<JoinOrLogin>.value(
+              value: JoinOrLogin(),
+              child: AuthScreen(),
+            );
+          } else {
+            return MyHomePage(title: '모하는고양', email: snapshot.data!.email);
+          }
+        });
   }
 }
