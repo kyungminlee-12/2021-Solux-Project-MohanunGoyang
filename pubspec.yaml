@@ -1,4 +1,4 @@
-name: mohanun_goyang
+name: mohanun_goyang  
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  get: ^4.6.1
   flutter:
     sdk: flutter
 
@@ -38,6 +39,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  carousel_slider: 
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -58,6 +60,11 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
+  assets: 
+    - images/cat1.jpg    
+    - images/cat2.jpg 
+    - images/cat3.jpg 
+    - images/cat4.jpg 
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
