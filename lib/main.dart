@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mohanun_goyang/provider/join_or_login_notifier.dart';
 import 'package:mohanun_goyang/screen/main_screen.dart';
-import 'package:mohanun_goyang/screen/login_screen.dart';
+import 'package:mohanun_goyang/screen/auth_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());

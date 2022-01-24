@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mohanun_goyang/screen/login_screen.dart';
+import 'package:mohanun_goyang/screen/auth_screen.dart';
 import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {

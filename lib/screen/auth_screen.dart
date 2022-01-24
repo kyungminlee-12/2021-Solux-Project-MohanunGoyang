@@ -22,11 +22,9 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final double statusBarHeight = MediaQuery.of(context).padding.top;
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-        // resizeToAvoidBottomInset: false,
         body: Stack(
       alignment: Alignment.center,
       children: [
@@ -42,11 +40,6 @@ class _AuthScreenState extends State<AuthScreen> {
               children: [
                 _inputForm(size),
                 _authButton(size),
-                // Container(
-                //   width: 100,
-                //   height: 50,
-                //   color: Colors.black,
-                // ),
               ],
             ),
             SizedBox(
@@ -190,102 +183,4 @@ class _AuthScreenState extends State<AuthScreen> {
       ),
     );
   }
-  // @override
-  // Widget build(BuildContext context) {
-  //   final double statusBarHeight = MediaQuery.of(context).padding.top;
-  //   final double Height = MediaQuery.of(context).size.height;
-
-  //   return Scaffold(
-  //     resizeToAvoidBottomInset: false,
-  //     body: Padding(
-  //       child: Column(
-  //         mainAxisAlignment: MainAxisAlignment.center,
-  //         children: [
-  //           Form(
-  //             key: _formKey,
-  //             child: Column(
-  //               children: [
-  //                 TextFormField(
-  //                   controller: _emailController,
-  //                   decoration: const InputDecoration(
-  //                     labelText: 'Email',
-  //                     hintText: 'Enter your email',
-  //                     border: OutlineInputBorder(
-  //                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-  //                     ),
-  //                   ),
-  //                   validator: (value) {
-  //                     if (value == null || value.isEmpty) {
-  //                       return "Please input correct email.";
-  //                     }
-  //                     return null;
-  //                   },
-  //                   keyboardType: TextInputType.emailAddress,
-  //                 ),
-  //                 SizedBox(
-  //                   height: Height * 0.02,
-  //                 ),
-  //                 TextFormField(
-  //                   obscureText: true,
-  //                   controller: _passwordController,
-  //                   decoration: const InputDecoration(
-  //                     labelText: 'Password',
-  //                     hintText: 'Enter your password',
-  //                     border: OutlineInputBorder(
-  //                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-  //                     ),
-  //                   ),
-  //                   validator: (value) {
-  //                     if (value == null || value.isEmpty) {
-  //                       return "Please input correct password.";
-  //                     }
-  //                     return null;
-  //                   },
-  //                   keyboardType: TextInputType.visiblePassword,
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //           SizedBox(
-  //             height: Height * 0.025,
-  //           ),
-  //           ElevatedButton(
-  //             onPressed: () {
-  //               if (_formKey.currentState!.validate()) {}
-  //             },
-  //             style: ElevatedButton.styleFrom(
-  //               minimumSize: const Size.fromHeight(50),
-  //             ),
-  //             child: Text('Sign In'),
-  //           ),
-  //           SizedBox(
-  //             height: Height * 0.01,
-  //           ),
-  //           OutlinedButton(
-  //             onPressed: () {
-  //               Provider.of<JoinOrLogin>(context).toggle();
-  //             },
-  //             style: OutlinedButton.styleFrom(
-  //               minimumSize: const Size.fromHeight(50),
-  //             ),
-  //             child: Text('Sign Up'),
-  //           ),
-  //           SizedBox(
-  //             height: Height * 0.01,
-  //           ),
-  //           OutlinedButton(
-  //             onPressed: () {
-  //               Provider.of<PageNotifier>(context, listen: false).goToMain();
-  //             },
-  //             style: OutlinedButton.styleFrom(
-  //               minimumSize: const Size.fromHeight(50),
-  //             ),
-  //             child: Text('Forget Password'),
-  //           ),
-  //         ],
-  //       ),
-  //       padding: EdgeInsets.all(20.0),
-  //     ),
-  //   );
-  // }
 }
