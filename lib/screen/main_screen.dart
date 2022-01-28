@@ -9,7 +9,7 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title, required this.email})
       : super(key: key);
 
-  final String email;
+  final String? email;
   final String title;
 
   @override
@@ -23,7 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.email),
+        title: Text(widget.email.toString()),
       ),
       body: Container(
         child: Center(

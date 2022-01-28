@@ -1,13 +1,20 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mohanun_goyang/provider/join_or_login_notifier.dart';
+import 'package:mohanun_goyang/screen/board_screen.dart';
 import 'package:mohanun_goyang/screen/home_screen.dart';
 import 'package:mohanun_goyang/screen/main_screen.dart';
 import 'package:mohanun_goyang/screen/auth_screen.dart';
 import 'package:mohanun_goyang/widget/bottom_bar.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+// void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   MyApp({Key? key}) : super(key: key);
@@ -19,6 +26,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Splash(),
     );
   }
@@ -27,8 +35,8 @@ class _MyAppState extends State<MyApp> {
 class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<FirebaseUser>(
-        stream: FirebaseAuth.instance.onAuthStateChanged,
+    return StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.data == null) {
             return ChangeNotifierProvider<JoinOrLogin>.value(
@@ -45,7 +53,7 @@ class Splash extends StatelessWidget {
                   physics: NeverScrollableScrollPhysics(),
                   children: <Widget>[
                     HomeScreen(),
-                    Container(),
+                    BoardScreen(),
                     Container(),
                     Container(),
                   ],

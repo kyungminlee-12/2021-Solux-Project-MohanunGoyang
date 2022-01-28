@@ -69,10 +69,10 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   void _register(BuildContext context) async {
-    final AuthResult result = await FirebaseAuth.instance
+    final UserCredential result = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(
             email: _emailController.text, password: _passwordController.text);
-    final FirebaseUser user = result.user;
+    final User? user = result.user;
 
     if (user == null) {
       final snacBar = SnackBar(
@@ -83,10 +83,10 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   void _login(BuildContext context) async {
-    final AuthResult result = await FirebaseAuth.instance
+    final UserCredential result = await FirebaseAuth.instance
         .signInWithEmailAndPassword(
             email: _emailController.text, password: _passwordController.text);
-    final FirebaseUser user = result.user;
+    final User? user = result.user;
 
     if (user == null) {
       final snacBar = SnackBar(
