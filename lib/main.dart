@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:mohanun_goyang/screen/board_screen.dart';
 import 'package:mohanun_goyang/screen/home_screen.dart';
 import 'package:mohanun_goyang/screen/main_screen.dart';
 import 'package:mohanun_goyang/screen/auth_screen.dart';
+import 'package:mohanun_goyang/screen/setProfile_screen.dart';
 import 'package:mohanun_goyang/widget/bottom_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -33,6 +35,12 @@ class _MyAppState extends State<MyApp> {
 }
 
 class Splash extends StatelessWidget {
+  // final Stream<QuerySnapshot> _usersStream =
+  //     FirebaseFirestore.instance.collection('users').snapshots();
+
+  // final userReference = FirebaseFirestore.instance.collection('users');
+  // User? currentUser = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
@@ -43,6 +51,8 @@ class Splash extends StatelessWidget {
               value: JoinOrLogin(),
               child: AuthScreen(),
             );
+            // } else if (snapshot.data!.displayName == null) {
+            //   return setProfile();
           } else {
             // return MyHomePage(title: '모하는고양', email: snapshot.data!.email);
             return DefaultTabController(
@@ -55,7 +65,8 @@ class Splash extends StatelessWidget {
                     HomeScreen(),
                     BoardScreen(),
                     Container(),
-                    Container(),
+                    MyHomePage(
+                        title: '모하는고양', email: snapshot.data!.displayName),
                   ],
                 ),
                 bottomNavigationBar: Bottom(), // widget 폴더 안에다 bottom 코딩하기

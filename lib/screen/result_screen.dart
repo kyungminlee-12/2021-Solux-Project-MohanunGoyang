@@ -19,7 +19,10 @@ class _ResultScreenState extends State<ResultScreen> {
     switch (widget.index) {
       case "all":
         {
-          currentStream = firestore.collection("board").snapshots();
+          currentStream = firestore
+              .collection("board")
+              .orderBy("date", descending: true)
+              .snapshots();
           break;
         }
       case "notice":
@@ -27,6 +30,7 @@ class _ResultScreenState extends State<ResultScreen> {
           currentStream = firestore
               .collection("board")
               .where("category", isEqualTo: "공지사항")
+              .orderBy("date", descending: true)
               .snapshots();
           break;
         }
@@ -35,6 +39,7 @@ class _ResultScreenState extends State<ResultScreen> {
           currentStream = firestore
               .collection("board")
               .where("category", isEqualTo: "꿀팁")
+              .orderBy("date", descending: true)
               .snapshots();
           break;
         }
@@ -43,6 +48,7 @@ class _ResultScreenState extends State<ResultScreen> {
           currentStream = firestore
               .collection("board")
               .where("category", isEqualTo: "소식")
+              .orderBy("date", descending: true)
               .snapshots();
           break;
         }
