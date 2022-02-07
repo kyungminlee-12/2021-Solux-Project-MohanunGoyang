@@ -9,6 +9,7 @@ import 'package:mohanun_goyang/screen/main_screen.dart';
 import 'package:mohanun_goyang/screen/auth_screen.dart';
 import 'package:mohanun_goyang/screen/mypage_screen.dart';
 import 'package:mohanun_goyang/screen/setProfile_screen.dart';
+import 'package:mohanun_goyang/screen/favorites_screen.dart';
 import 'package:mohanun_goyang/widget/bottom_bar.dart';
 import 'package:provider/provider.dart';
 
