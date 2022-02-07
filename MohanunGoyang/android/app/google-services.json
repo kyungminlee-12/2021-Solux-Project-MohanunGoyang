@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "991179648518",
+    "project_id": "mohanun-goyang",
+    "storage_bucket": "mohanun-goyang.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991179648518:android:9ee3ea81fe31ef3ae91d87",
+        "android_client_info": {
+          "package_name": "com.example.mohanun_goyang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "991179648518-r4f98ir0vnohdc2cas7a7tth9d7e2rrs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVxJa06C9jJMeCop8Fz47byrJ6p2W4oaU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "991179648518-r4f98ir0vnohdc2cas7a7tth9d7e2rrs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
