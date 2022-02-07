@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mohanun_goyang/provider/join_or_login_notifier.dart';
+import 'package:mohanun_goyang/screen/setProfile_screen.dart';
 import 'package:provider/provider.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -72,7 +74,20 @@ class _AuthScreenState extends State<AuthScreen> {
     final UserCredential result = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(
             email: _emailController.text, password: _passwordController.text);
+
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => setProfile()),
+    );
+
     final User? user = result.user;
+
+    // final CollectionReference userCollection =
+    //     FirebaseFirestore.instance.collection('users');
+    // userCollection.doc(user!.uid).set({
+    //   'email': _emailController.text,
+    //   'password': _passwordController.text,
+    // });
 
     if (user == null) {
       final snacBar = SnackBar(

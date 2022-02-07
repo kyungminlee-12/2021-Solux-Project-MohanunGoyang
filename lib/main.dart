@@ -7,6 +7,7 @@ import 'package:mohanun_goyang/screen/board_screen.dart';
 import 'package:mohanun_goyang/screen/home_screen.dart';
 import 'package:mohanun_goyang/screen/main_screen.dart';
 import 'package:mohanun_goyang/screen/auth_screen.dart';
+import 'package:mohanun_goyang/screen/mypage_screen.dart';
 import 'package:mohanun_goyang/screen/setProfile_screen.dart';
 import 'package:mohanun_goyang/widget/bottom_bar.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +29,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(scaffoldBackgroundColor: const Color(0xffFAFAFA)),
       debugShowCheckedModeBanner: false,
       home: Splash(),
     );
@@ -51,7 +53,7 @@ class Splash extends StatelessWidget {
               value: JoinOrLogin(),
               child: AuthScreen(),
             );
-            // } else if (snapshot.data!.displayName == null) {
+            // } else if (snapshot.data.displayName == null) {
             //   return setProfile();
           } else {
             // return MyHomePage(title: '모하는고양', email: snapshot.data!.email);
@@ -65,8 +67,7 @@ class Splash extends StatelessWidget {
                     HomeScreen(),
                     BoardScreen(),
                     Container(),
-                    MyHomePage(
-                        title: '모하는고양', email: snapshot.data!.displayName),
+                    MyPageScreen(),
                   ],
                 ),
                 bottomNavigationBar: Bottom(), // widget 폴더 안에다 bottom 코딩하기

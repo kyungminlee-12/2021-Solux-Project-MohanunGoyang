@@ -54,7 +54,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: const Color(0xff5A483F),
           title: Text("서울시 용산구 청파동"),
+          elevation: 0.0,
         ),
         body: ListView(scrollDirection: Axis.vertical, children: <Widget>[
           ListTile(

@@ -16,6 +16,7 @@ class _BoardScreenState extends State<BoardScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(scaffoldBackgroundColor: const Color(0xffFAFAFA)),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {

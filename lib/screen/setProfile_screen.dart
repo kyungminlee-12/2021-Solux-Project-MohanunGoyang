@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -9,17 +10,21 @@ class _setProfileState extends State<setProfile> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController userNameController = TextEditingController();
 
-  // late String? userName = FirebaseAuth.instance.currentUser!.displayName;
   User? user = FirebaseAuth.instance.currentUser;
 
   submitUserName() {
-    // final form = _formKey.currentState;
-    // if (form!.validate()) {
-
-    // form!.save();
-    user!.updateDisplayName(userNameController.text);
-    user!.reload();
-    // }
+    // final CollectionReference userCollection =
+    //     FirebaseFirestore.instance.collection('users');
+    // userCollection.doc(user!.uid).set({
+    //   'name': userNameController.text,
+    // });
+    final form = _formKey.currentState;
+    if (form!.validate()) {
+      form.save();
+      // user!.updateDisplayName(userNameController.text);
+      user!.reload();
+    }
+    Navigator.pop(context);
   }
 
   @override
@@ -40,15 +45,16 @@ class _setProfileState extends State<setProfile> {
               child: TextFormField(
                 controller: userNameController,
                 validator: (value) {
-                  if (value!.trim().length < 5 || value!.isEmpty) {
+                  if (value!.trim().length < 5 || value.isEmpty) {
                     return "User Name is too short";
-                  } else if (value!.trim().length > 15 || value!.isEmpty) {
+                  } else if (value.trim().length > 15 || value.isEmpty) {
                     return "User Name is too long";
                   } else {
                     return null;
                   }
                 },
-                // onSaved: (value) => userName = value!,
+                // onSaved: (value) => user!.displayName = value!,
+                onSaved: (value) => user!.updateDisplayName(value),
               )),
         ),
         ElevatedButton(
@@ -61,11 +67,12 @@ class _setProfileState extends State<setProfile> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
             ),
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                submitUserName();
-              }
-            }),
+            // onPressed: () {
+            //   if (_formKey.currentState!.validate()) {
+            //     submitUserName();
+            //   }
+            // }),
+            onPressed: submitUserName),
       ],
     ));
   }

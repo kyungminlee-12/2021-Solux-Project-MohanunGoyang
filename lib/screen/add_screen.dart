@@ -18,7 +18,29 @@ class _AddScreenState extends State<AddScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: Text("글쓰기")),
+      appBar: AppBar(
+        title: Text("글쓰기"),
+        backgroundColor: const Color(0xff5A483F),
+        elevation: 0.0,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              FirebaseFirestore.instance.collection("board").doc(title).set({
+                "title": title,
+                "category": category,
+                "contents": contents,
+                "writer": writer,
+                "date": date,
+              });
+              Navigator.pop(context);
+            },
+          )
+        ],
+      ),
       body: Column(
         children: <Widget>[
           TextField(
@@ -50,20 +72,6 @@ class _AddScreenState extends State<AddScreen> {
             onChanged: (value) {
               date = value;
             },
-          ),
-          TextButton(
-            onPressed: () {
-              FirebaseFirestore.instance.collection("board").doc(title).set({
-                "title": title,
-                "category": category,
-                "contents": contents,
-                "writer": writer,
-                "date": date,
-              });
-              Navigator.pop(context);
-            },
-            style: TextButton.styleFrom(primary: Colors.brown),
-            child: Text("완료"),
           ),
         ],
       ),

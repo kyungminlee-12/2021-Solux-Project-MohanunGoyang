@@ -60,6 +60,8 @@ class _ResultScreenState extends State<ResultScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("게시판"),
+        backgroundColor: const Color(0xff5A483F),
+        elevation: 0.0,
         actions: <Widget>[
           PopupMenuButton<String>(
             onSelected: (String choice) {
