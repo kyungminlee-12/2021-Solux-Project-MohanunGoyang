@@ -1,24 +1,25 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';   
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mohanun_goyang/provider/join_or_login_notifier.dart';
 import 'package:mohanun_goyang/screen/board_screen.dart';
 import 'package:mohanun_goyang/screen/home_screen.dart';
-import 'package:mohanun_goyang/screen/main_screen.dart';
+import 'package:mohanun_goyang/model/model_cat.dart';
+import 'package:mohanun_goyang/screen/main_screen.dart'; 
 import 'package:mohanun_goyang/screen/auth_screen.dart';
 import 'package:mohanun_goyang/screen/mypage_screen.dart';
 import 'package:mohanun_goyang/screen/setProfile_screen.dart';
-import 'package:mohanun_goyang/screen/favorites_screen.dart';
+import 'package:mohanun_goyang/screen/favorites_screen.dart'; 
 import 'package:mohanun_goyang/widget/bottom_bar.dart';
 import 'package:provider/provider.dart';
-
-// void main() => runApp(MyApp());
+    
+// void main() => runApp(MyApp());   
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
-}
+} 
 
 class MyApp extends StatefulWidget {
   MyApp({Key? key}) : super(key: key);
@@ -34,18 +35,65 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Splash(),
     );
-  }
-}
-
-class Splash extends StatelessWidget {
+  } 
+}    
+ 
+class Splash extends StatelessWidget {  
   // final Stream<QuerySnapshot> _usersStream =
   //     FirebaseFirestore.instance.collection('users').snapshots();
 
   // final userReference = FirebaseFirestore.instance.collection('users');
-  // User? currentUser = FirebaseAuth.instance.currentUser;
+  // User? currentUser = FirebaseAuth.instance.currentUser; 
 
-  @override
-  Widget build(BuildContext context) {
+  List<CatInfo> cat = [
+    CatInfo.fromMap({
+      'name': '햇살이',
+      'location': '숙명여대 캠퍼스',
+      'neutering': true,
+      'picture': 'cat1.jpg',
+      'date': '2021.01.14',
+      'gender': 'male',
+      'age': '모름',
+      'like': true,
+      'characteristic': '사람 손을 잘 타요',
+    }),
+    CatInfo.fromMap({
+      'name': '부바',
+      'location': '숙명여대 캠퍼스', 
+      'neutering': false,
+      'picture': 'cat1.jpg',
+      'date': '2021.01.15',
+      'gender': 'female',
+      'age': '모름',
+      'like': false,
+      'characteristic': '주로 햇살이와 함께 다님',
+    }),
+    CatInfo.fromMap({
+      'name': '주주',
+      'location': '숙명여대 캠퍼스',
+      'neutering': true,
+      'picture': 'cat1.jpg',
+      'date': '2021.01.16',
+      'gender': 'male',
+      'age': '모름',
+      'like': true,
+      'characteristic': '새 관찰을 좋아함',
+    }),
+    CatInfo.fromMap({
+      'name': '니니',
+      'location': '숙명여대 캠퍼스',
+      'neutering': false,
+      'picture': 'cat1.jpg',
+      'date': '2021.02.12',
+      'gender': 'male',
+      'age': '모름',
+      'like': true,
+      'characteristic': '사람이 만지는 것을 싫어함',
+    }),
+  ];
+
+  @override 
+  Widget build(BuildContext context) { 
     return StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
@@ -65,9 +113,9 @@ class Splash extends StatelessWidget {
                   // 사용자가 직접 손가락으로 스크롤 하는 것 막음
                   physics: NeverScrollableScrollPhysics(),
                   children: <Widget>[
-                    HomeScreen(),
+                    HomeScreen(cat: cat),
                     BoardScreen(),
-                    Container(),
+                    LikeScreen(cat: cat),
                     MyPageScreen(),
                   ],
                 ),
