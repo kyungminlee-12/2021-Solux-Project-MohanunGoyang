@@ -11,7 +11,8 @@ class CarouselImage extends StatefulWidget {
 }
 class _CarouselImageState extends State<CarouselImage> {
   late List<CatInfo> cat;
-  late List<Widget> images;
+  // late List<Widget> picture;
+  late List<String> picture;
   late List<String> name;
   late List<String> location;
   late List<String> date;
@@ -22,7 +23,7 @@ class _CarouselImageState extends State<CarouselImage> {
   bool like_state=false;
   var _icon=Icons.favorite;
   int _currentPage=0; 
-
+  late String _currentpicture;
   late String _currentdate;
   late String _currentname;
   late String _currentlocation;
@@ -33,7 +34,9 @@ class _CarouselImageState extends State<CarouselImage> {
   void initState() {
     super.initState();
     cat=widget.cat;
-    images=cat.map((m) => Image.asset('./images/'+m.picture)).toList();
+    // images=cat.map((m) => Image.asset('./images/'+m.picture)).toList();
+    // images=cat.map((m) => Image.asset('images/'+m.picture)).toList();
+    picture=cat.map((m) => m.picture).toList();
     name=cat.map((m) => m.name).toList();
     location=cat.map((m) => m.location).toList();
     date=cat.map((m) => m.date).toList();
@@ -42,6 +45,8 @@ class _CarouselImageState extends State<CarouselImage> {
     _currentPage=widget.cat_index;
     //cat_index=0;
 
+    //_currentimage=date[_currentPage];
+    _currentpicture=picture[_currentPage];
     _currentdate=date[_currentPage];
     _currentname=name[_currentPage];
     _currentlocation=location[_currentPage];
@@ -56,8 +61,9 @@ class _CarouselImageState extends State<CarouselImage> {
         children: <Widget>[
           Container(padding: EdgeInsets.fromLTRB(5, 5, 5, 0),),
           Container(
-            child: Image.asset('images/cat1.jpg'),  
-            height: 200,
+            // child: Image.asset('images/cat1.jpg'),  
+            child: Image.asset('images/'+_currentpicture),  
+            height: 200, 
             width: 200,
           ),
   
