@@ -24,7 +24,7 @@ class DocumentView extends StatelessWidget {
             );
           },
           title: Text(
-              "[" + documentData["category"] + "]" + documentData["title"]),
+              "[" + documentData["category"] + "] " + documentData["title"]),
           subtitle: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
