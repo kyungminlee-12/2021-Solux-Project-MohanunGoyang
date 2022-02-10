@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 
 class AddScreen extends StatefulWidget {
   @override
@@ -11,8 +12,8 @@ class _AddScreenState extends State<AddScreen> {
   late String title;
   late String contents;
   late String category;
-  late String date;
-  late String writer;
+  User? user = FirebaseAuth.instance.currentUser;
+  DateTime now = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +34,8 @@ class _AddScreenState extends State<AddScreen> {
                 "title": title,
                 "category": category,
                 "contents": contents,
-                "writer": writer,
-                "date": date,
+                "writer": user!.displayName,
+                "date": DateFormat('yyyy.MM.dd').format(now),
               });
               Navigator.pop(context);
             },
@@ -59,18 +60,6 @@ class _AddScreenState extends State<AddScreen> {
             decoration: kTextFieldDecoration.copyWith(hintText: "내용"),
             onChanged: (value) {
               contents = value;
-            },
-          ),
-          TextField(
-            decoration: kTextFieldDecoration.copyWith(hintText: "작성자"),
-            onChanged: (value) {
-              writer = value;
-            },
-          ),
-          TextField(
-            decoration: kTextFieldDecoration.copyWith(hintText: "날짜"),
-            onChanged: (value) {
-              date = value;
             },
           ),
         ],

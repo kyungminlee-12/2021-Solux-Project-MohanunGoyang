@@ -16,6 +16,7 @@ class _setProfileState extends State<setProfile> {
     final form = _formKey.currentState;
     if (form!.validate()) {
       form.save();
+      user!.updateDisplayName(userNameController.text);
       user!.reload();
     }
     Navigator.pop(context);

@@ -57,6 +57,8 @@ class _ResultScreenState extends State<ResultScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double statusBar = MediaQuery.of(context).padding.top;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("게시판"),
@@ -92,7 +94,9 @@ class _ResultScreenState extends State<ResultScreen> {
         stream: currentStream,
         builder: (context, AsyncSnapshot snapshot) {
           if (!snapshot.hasData) {
-            return CircularProgressIndicator();
+            return Padding(
+                padding: EdgeInsets.only(top: statusBar),
+                child: Center(child: CircularProgressIndicator()));
           }
           List<DocumentSnapshot> docs = snapshot.data.docs;
           return ListView(

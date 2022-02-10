@@ -82,12 +82,11 @@ class _AuthScreenState extends State<AuthScreen> {
 
     final User? user = result.user;
 
-    // final CollectionReference userCollection =
-    //     FirebaseFirestore.instance.collection('users');
-    // userCollection.doc(user!.uid).set({
-    //   'email': _emailController.text,
-    //   'password': _passwordController.text,
-    // });
+    final CollectionReference userCollection =
+        FirebaseFirestore.instance.collection('users');
+    userCollection.doc(user!.uid).set({
+      'email': _emailController.text,
+    });
 
     if (user == null) {
       final snacBar = SnackBar(
@@ -132,10 +131,10 @@ class _AuthScreenState extends State<AuthScreen> {
         builder: (context, joinOrLogin, child) => ElevatedButton(
             child: Text(
               joinOrLogin.isJoin ? "Join" : "Login",
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(color: Colors.white, fontSize: 15),
             ),
             style: ElevatedButton.styleFrom(
-              primary: joinOrLogin.isJoin ? Colors.red : Colors.blue,
+              primary: joinOrLogin.isJoin ? Color(0xffff4f84) : Colors.brown,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
             ),

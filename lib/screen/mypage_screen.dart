@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mohanun_goyang/screen/result_screen.dart';
 import 'package:mohanun_goyang/screen/add_screen.dart';
 
+import 'myboard_screen.dart';
+
 class MyPageScreen extends StatefulWidget {
   _MyPageScreenState createState() => _MyPageScreenState();
 }
@@ -52,7 +54,12 @@ class _MyPageScreenState extends State<MyPageScreen> {
                   ),
                 ),
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyBoardScreen()),
+                    );
+                  },
                   style: OutlinedButton.styleFrom(
                       fixedSize: Size(180, 20), side: BorderSide(width: 1.5)),
                   child: Text(
