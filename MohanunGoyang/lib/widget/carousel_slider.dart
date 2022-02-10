@@ -5,21 +5,25 @@ import 'package:mohanun_goyang/model/model_cat.dart';
 
 class CarouselImage extends StatefulWidget {
   final List<CatInfo> cat;
-  CarouselImage({required this.cat});    // constructor를 통해 movies를 갖고오기 
+  final int cat_index;
+  CarouselImage({required this.cat, required this.cat_index});    // constructor를 통해 movies를 갖고오기 
   _CarouselImageState createState() => _CarouselImageState();
 }
-
 class _CarouselImageState extends State<CarouselImage> {
   late List<CatInfo> cat;
-  late List<Widget> images;
+  // late List<Widget> picture;
+  late List<String> picture;
   late List<String> name;
   late List<String> location;
   late List<String> date;
   late List<bool> neutering;
   late List<bool> like;
-  
-  int _currentPage=0; 
 
+  //late int cat_index;
+  bool like_state=false;
+  var _icon=Icons.favorite;
+  int _currentPage=0; 
+  late String _currentpicture;
   late String _currentdate;
   late String _currentname;
   late String _currentlocation;
@@ -30,18 +34,24 @@ class _CarouselImageState extends State<CarouselImage> {
   void initState() {
     super.initState();
     cat=widget.cat;
-    images=cat.map((m) => Image.asset('./images/'+m.picture)).toList();
+    // images=cat.map((m) => Image.asset('./images/'+m.picture)).toList();
+    // images=cat.map((m) => Image.asset('images/'+m.picture)).toList();
+    picture=cat.map((m) => m.picture).toList();
     name=cat.map((m) => m.name).toList();
     location=cat.map((m) => m.location).toList();
     date=cat.map((m) => m.date).toList();
     neutering=cat.map((m) => m.neutering).toList();
     like=cat.map((m) => m.like).toList();
+    _currentPage=widget.cat_index;
+    //cat_index=0;
 
-    _currentdate=date[0];
-    _currentname=name[0];
-    _currentlocation=location[0];
-    _currentneutering=neutering[0];
-    _currentlike=like[0];
+    //_currentimage=date[_currentPage];
+    _currentpicture=picture[_currentPage];
+    _currentdate=date[_currentPage];
+    _currentname=name[_currentPage];
+    _currentlocation=location[_currentPage];
+    _currentneutering=neutering[_currentPage];
+    _currentlike=like[_currentPage];
   }
 
   @override 
@@ -49,10 +59,11 @@ class _CarouselImageState extends State<CarouselImage> {
     return Container(
       child: Column(
         children: <Widget>[
-          Container(padding: EdgeInsets.all(5),),
+          Container(padding: EdgeInsets.fromLTRB(5, 5, 5, 0),),
           Container(
-            child: Image.asset('images/cat1.jpg'),  
-            height: 200,
+            // child: Image.asset('images/cat1.jpg'),  
+            child: Image.asset('images/'+_currentpicture),  
+            height: 200, 
             width: 200,
           ),
   
@@ -64,9 +75,19 @@ class _CarouselImageState extends State<CarouselImage> {
                 Container(
                   padding: EdgeInsets.only(right: 10),
                   child: Column(children: <Widget>[
-                    like[_currentPage]   // neutering(likes)의 current page가 true면 check, false면 add 형태
-                    ? IconButton(onPressed: () {}, icon: Icon(Icons.favorite),)
-                    : IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border),),
+                   
+                    IconButton(
+                      icon: _currentlike   // neutering(likes)의 current page가 true면 check, false면 add 형태
+                        ? IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border),)
+                        : IconButton(onPressed: () {}, icon: Icon(Icons.favorite),),
+                      onPressed: () {
+                        setState(() {
+                          if (_currentlike==true) _currentlike=false;
+                          else _currentlike=true;
+                        });
+                      },
+                    ),
+                   
                     Text('좋아요', style: TextStyle(fontSize: 11),)
                   ],),
                 ),
@@ -82,13 +103,12 @@ class _CarouselImageState extends State<CarouselImage> {
                       child: Row(
                         children: <Widget>[
                           Text("중성화 여부: ", style: TextStyle(fontSize: 11),),
-                          neutering[_currentPage]   // neutering(likes)의 current page가 true면 check, false면 add 형태
+                          _currentneutering   // neutering(likes)의 current page가 true면 check, false면 add 형태
                           ? IconButton(onPressed: () {}, icon: Icon(Icons.check),)
-                          : IconButton(onPressed: () {}, icon: Icon(Icons.no_accounts),),
+                          : IconButton(onPressed: () {}, icon: Icon(Icons.close_sharp),),
                         ],
                       )
                     ),
-
                     Text("최근 수정일: "+_currentdate, style: TextStyle(fontSize: 11),),   
                   ],),
                 ),
@@ -110,9 +130,27 @@ class _CarouselImageState extends State<CarouselImage> {
                 ),
             ],),
           ),
+          Container(
+            padding: EdgeInsets.only(top: 10),
+            width: 500,
+            child: Divider(
+              color: Color(0xff5A483F), 
+              thickness: 2.0
+            )
+          ),
       ],),
+      
     );
   }
+
+  void _click() {
+    if(_icon == Icons.favorite) {
+      _icon=Icons.favorite_border;
+    } else {
+      _icon = Icons.favorite;
+    }
+  }
+  
 }
 
 
@@ -135,6 +173,9 @@ List<Widget> makeIndicator(List list, int _currentPage) {
   }
   return results;
 }
+
+
+
 
 
 
