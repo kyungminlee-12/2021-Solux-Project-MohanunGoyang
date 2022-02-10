@@ -13,15 +13,9 @@ class _setProfileState extends State<setProfile> {
   User? user = FirebaseAuth.instance.currentUser;
 
   submitUserName() {
-    // final CollectionReference userCollection =
-    //     FirebaseFirestore.instance.collection('users');
-    // userCollection.doc(user!.uid).set({
-    //   'name': userNameController.text,
-    // });
     final form = _formKey.currentState;
     if (form!.validate()) {
       form.save();
-      // user!.updateDisplayName(userNameController.text);
       user!.reload();
     }
     Navigator.pop(context);
@@ -40,6 +34,7 @@ class _setProfileState extends State<setProfile> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
+          padding: EdgeInsets.symmetric(horizontal: 30),
           child: Form(
               key: _formKey,
               child: TextFormField(
@@ -53,9 +48,24 @@ class _setProfileState extends State<setProfile> {
                     return null;
                   }
                 },
-                // onSaved: (value) => user!.displayName = value!,
+                decoration: InputDecoration(
+                  hintText: "Enter User Name",
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.brown,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.brown,
+                    ),
+                  ),
+                ),
                 onSaved: (value) => user!.updateDisplayName(value),
               )),
+        ),
+        SizedBox(
+          height: 20,
         ),
         ElevatedButton(
             child: Text(
@@ -63,15 +73,10 @@ class _setProfileState extends State<setProfile> {
               style: TextStyle(fontSize: 16),
             ),
             style: ElevatedButton.styleFrom(
-              primary: Colors.red,
+              primary: Colors.brown,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
             ),
-            // onPressed: () {
-            //   if (_formKey.currentState!.validate()) {
-            //     submitUserName();
-            //   }
-            // }),
             onPressed: submitUserName),
       ],
     ));

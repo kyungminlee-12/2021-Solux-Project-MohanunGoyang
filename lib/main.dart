@@ -5,14 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:mohanun_goyang/provider/join_or_login_notifier.dart';
 import 'package:mohanun_goyang/screen/board_screen.dart';
 import 'package:mohanun_goyang/screen/home_screen.dart';
-import 'package:mohanun_goyang/screen/main_screen.dart';
 import 'package:mohanun_goyang/screen/auth_screen.dart';
 import 'package:mohanun_goyang/screen/mypage_screen.dart';
 import 'package:mohanun_goyang/screen/setProfile_screen.dart';
 import 'package:mohanun_goyang/widget/bottom_bar.dart';
 import 'package:provider/provider.dart';
 
-// void main() => runApp(MyApp());
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -37,12 +35,6 @@ class _MyAppState extends State<MyApp> {
 }
 
 class Splash extends StatelessWidget {
-  // final Stream<QuerySnapshot> _usersStream =
-  //     FirebaseFirestore.instance.collection('users').snapshots();
-
-  // final userReference = FirebaseFirestore.instance.collection('users');
-  // User? currentUser = FirebaseAuth.instance.currentUser;
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
@@ -53,15 +45,11 @@ class Splash extends StatelessWidget {
               value: JoinOrLogin(),
               child: AuthScreen(),
             );
-            // } else if (snapshot.data.displayName == null) {
-            //   return setProfile();
           } else {
-            // return MyHomePage(title: '모하는고양', email: snapshot.data!.email);
             return DefaultTabController(
-              length: 4, // tab 간의 길이
+              length: 4,
               child: Scaffold(
                 body: TabBarView(
-                  // 사용자가 직접 손가락으로 스크롤 하는 것 막음
                   physics: NeverScrollableScrollPhysics(),
                   children: <Widget>[
                     HomeScreen(),
@@ -70,7 +58,7 @@ class Splash extends StatelessWidget {
                     MyPageScreen(),
                   ],
                 ),
-                bottomNavigationBar: Bottom(), // widget 폴더 안에다 bottom 코딩하기
+                bottomNavigationBar: Bottom(),
               ),
             );
           }

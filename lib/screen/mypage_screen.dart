@@ -10,6 +10,8 @@ class MyPageScreen extends StatefulWidget {
 }
 
 class _MyPageScreenState extends State<MyPageScreen> {
+  User? user = FirebaseAuth.instance.currentUser;
+
   @override
   void initState() {
     super.initState();
@@ -32,7 +34,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
               height: size.height * 0.02,
             ),
             Text(
-              "ID",
+              user!.displayName.toString(),
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(
