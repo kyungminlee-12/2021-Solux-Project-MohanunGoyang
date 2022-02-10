@@ -49,7 +49,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             // Image.asset('images/cat2.jpg'),
                             Container(
                               padding: EdgeInsets.only(top: 50),
-                              child: CircleAvatar(radius: 100, backgroundImage: AssetImage('images/cat1.jpg'),),
+                              child: CircleAvatar(radius: 100, backgroundImage: AssetImage('images/'+widget.cat.picture),),
                             ),
                             /*
                             Container(
@@ -116,7 +116,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                   Text("중성화 여부: ", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
                                   widget.cat.neutering   // neutering(likes)의 current page가 true면 check, false면 add 형태
                                   ? IconButton(onPressed: () {}, icon: Icon(Icons.check),)
-                                  : IconButton(onPressed: () {}, icon: Icon(Icons.no_accounts),),
+                                  : IconButton(onPressed: () {}, icon: Icon(Icons.close_sharp),),
                                 ],
                               )
                             ),
@@ -194,9 +194,43 @@ class _DetailScreenState extends State<DetailScreen> {
                   child: Container(
                     child: Column(
                       children: <Widget>[
-                        Text( "댓글", style: TextStyle(fontSize: 17, color: Colors.white) ),
+                        Text( 
+                          widget.cat.comment, 
+                          style: TextStyle(fontSize: 17, color: Colors.white) 
+                        ),
                         Padding(padding: EdgeInsets.all(5),),
-                        Text( "date", style: TextStyle(fontSize: 13, color: Colors.white60,) ),
+                        Text( 
+                          widget.cat.commentDate, 
+                          style: TextStyle(fontSize: 13, color: Colors.white60,) 
+                        ),
+                      ],
+                    ),
+                  )
+                ),
+
+                Container(
+                  padding: EdgeInsets.fromLTRB(25, 15, 25, 15),
+                ),
+
+                Container(
+                  padding: EdgeInsets.fromLTRB(25, 15, 25, 15),
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Container(
+                    child: Column(
+                      children: <Widget>[
+                        Text( 
+                          widget.cat.comment2, 
+                          style: TextStyle(fontSize: 17, color: Colors.white) 
+                        ),
+                        Padding(padding: EdgeInsets.all(5),),
+                        Text( 
+                          widget.cat.commentDate2, 
+                          style: TextStyle(fontSize: 13, color: Colors.white60,) 
+                        ),
                       ],
                     ),
                   )

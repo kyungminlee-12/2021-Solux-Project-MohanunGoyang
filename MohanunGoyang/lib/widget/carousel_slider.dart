@@ -67,7 +67,7 @@ class _CarouselImageState extends State<CarouselImage> {
             width: 200,
           ),
   
-          Container(
+          Container( 
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -91,20 +91,6 @@ class _CarouselImageState extends State<CarouselImage> {
                         Text('좋아요', style: TextStyle(fontSize: 11),)
                       ],),
                     ),
-                    /*
-                    IconButton(
-                      icon: _currentlike   // neutering(likes)의 current page가 true면 check, false면 add 형태
-                        ? IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border),)
-                        : IconButton(onPressed: () {}, icon: Icon(Icons.favorite),),
-                      onPressed: () {
-                        setState(() {
-                          if (_currentlike==true) _currentlike=false;
-                          else _currentlike=true;
-                        });
-                      },
-                    ),
-                    */
-                    // Text('좋아요', style: TextStyle(fontSize: 11),)
                   ],),
                 ),
                 
@@ -125,7 +111,7 @@ class _CarouselImageState extends State<CarouselImage> {
                         ],
                       )
                     ),
-                    Text("최근 수정일: "+_currentdate, style: TextStyle(fontSize: 11),),   
+                    Text("최근 수정일: "+_currentdate, style: TextStyle(fontSize: 11),),    
                   ],),
                 ),
                 Container(
