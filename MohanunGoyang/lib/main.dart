@@ -1,4 +1,5 @@
-//import 'package:cloud_firestore/cloud_firestore.dart';   
+ 
+import 'package:cloud_firestore/cloud_firestore.dart'; 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +44,7 @@ class Splash extends StatelessWidget {
   //     FirebaseFirestore.instance.collection('users').snapshots();
 
   // final userReference = FirebaseFirestore.instance.collection('users');
+
   // User? currentUser = FirebaseAuth.instance.currentUser; 
 
   List<CatInfo> cat = [
@@ -92,8 +94,11 @@ class Splash extends StatelessWidget {
     }),
   ];
 
-  @override 
-  Widget build(BuildContext context) { 
+
+  // User? currentUser = FirebaseAuth.instance.currentUser;
+   
+  @override  
+  Widget build(BuildContext context) {
     return StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
