@@ -27,7 +27,7 @@ class _LikeScreenState extends State<LikeScreen> {
     return Scaffold( 
         appBar: AppBar( 
           backgroundColor: const Color(0xff5A483F),
-          title: Text("서울시 용산구 청파동"),
+          title: Text("즐겨찾기"),
         ),
         body: ListView(scrollDirection: Axis.vertical, children: <Widget>[
           Visibility(
