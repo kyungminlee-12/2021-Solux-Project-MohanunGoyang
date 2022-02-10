@@ -24,14 +24,14 @@ class _LikeScreenState extends State<LikeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold( 
         appBar: AppBar(
           backgroundColor: const Color(0xff5A483F),
           title: Text("서울시 용산구 청파동"),
         ),
         body: ListView(scrollDirection: Axis.vertical, children: <Widget>[
           Visibility(
-            visible: like[0] ? false : true ,
+            visible: like[0] ? true : false ,
             child: ListTile(
               // leading : Image.asset('images/cat1.jpg'),
               title: CarouselImage(cat: cat, cat_index: 0,),
@@ -40,27 +40,27 @@ class _LikeScreenState extends State<LikeScreen> {
             ),
           ),
           Visibility(
-            visible: like[1] ? false : true ,
+            visible: like[1] ? true : false ,
             child: ListTile(
               title: CarouselImage(cat: cat, cat_index: 1,),
               onTap: () {},
             ),
           ),
           Visibility(
-            visible: like[2] ? false : true ,
+            visible: like[2] ? true : false ,
             child: ListTile(
-              title: CarouselImage(cat: cat, cat_index: 1,),
+              title: CarouselImage(cat: cat, cat_index: 2,),
               onTap: () {},
             ),
           ),
           Visibility(
-            visible: like[3] ? false : true ,
+            visible: like[3] ? true : false ,
             child: ListTile(
-              title: CarouselImage(cat: cat, cat_index: 1,),
+              title: CarouselImage(cat: cat, cat_index: 3,),
               onTap: () {},
             ),
           ),
-          
+           
         
         ]));
   }
