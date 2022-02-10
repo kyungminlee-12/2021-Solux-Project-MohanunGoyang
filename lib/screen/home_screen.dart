@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xff5A483F),
-          title: Text("서울시 용산구 청파동"),
+          title: Text("홈"),
           elevation: 0.0,
         ),
         body: ListView(scrollDirection: Axis.vertical, children: <Widget>[
