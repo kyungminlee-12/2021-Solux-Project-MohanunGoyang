@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mohanun_goyang/provider/join_or_login_notifier.dart';
+import 'package:mohanun_goyang/provider/join_or_login_notifier.dart'; 
 import 'package:mohanun_goyang/screen/board_screen.dart';
 import 'package:mohanun_goyang/screen/home_screen.dart';
 import 'package:mohanun_goyang/model/model_cat.dart';
@@ -95,7 +95,7 @@ class Splash extends StatelessWidget {
   ];
 
 
-  // User? currentUser = FirebaseAuth.instance.currentUser;
+  // User? currentUser = FirebaseAuth.instance.currentUser; 
    
   @override  
   Widget build(BuildContext context) {

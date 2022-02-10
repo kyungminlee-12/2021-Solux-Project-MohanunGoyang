@@ -75,7 +75,23 @@ class _CarouselImageState extends State<CarouselImage> {
                 Container(
                   padding: EdgeInsets.only(right: 10),
                   child: Column(children: <Widget>[
-                   
+
+                    Container(
+                      padding: EdgeInsets.only(right: 10),
+                      child: Column(children: <Widget>[
+                        IconButton(
+                          icon: _currentneutering ? Icon(Icons.favorite) : Icon(Icons.favorite_border), 
+                          onPressed: () {
+                            setState(() {
+                              if (_currentlike==true) _currentlike=false;
+                              else _currentlike=true;
+                            });
+                          },
+                        ),
+                        Text('좋아요', style: TextStyle(fontSize: 11),)
+                      ],),
+                    ),
+                    /*
                     IconButton(
                       icon: _currentlike   // neutering(likes)의 current page가 true면 check, false면 add 형태
                         ? IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border),)
@@ -87,8 +103,8 @@ class _CarouselImageState extends State<CarouselImage> {
                         });
                       },
                     ),
-                   
-                    Text('좋아요', style: TextStyle(fontSize: 11),)
+                    */
+                    // Text('좋아요', style: TextStyle(fontSize: 11),)
                   ],),
                 ),
                 
