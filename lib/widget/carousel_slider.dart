@@ -168,7 +168,7 @@ List<Widget> makeIndicator(List list, int _currentPage) {
           shape: BoxShape.circle, 
           color: _currentPage==i
            ? Color.fromRGBO(255, 255, 255, 0.9)
-           : Color.fromRGBO(255, 255, 255, 0.4)
+           : Color.fromRGBO(255, 255, 255, 0.4) 
         ),
       )
     );

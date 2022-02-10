@@ -15,7 +15,7 @@ class CatInfo {
   final String comment2;
   final String commentDate2;
 
-  CatInfo.fromMap(Map<String, dynamic> map)
+  CatInfo.fromMap(Map<String, dynamic> map) 
   : name=map['name'],
     location=map['location'],
     neutering=map['neutering'],

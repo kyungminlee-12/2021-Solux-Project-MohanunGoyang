@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // leading : Image.asset('images/cat1.jpg'),
             title: CarouselImage(cat: cat, cat_index: 0,),
             // trailing : Icon(Icons.navigate_next),
-            onTap: () {},
+            onTap: () {}, 
           ),
           ListTile(
             title: CarouselImage(cat: cat, cat_index: 1,),

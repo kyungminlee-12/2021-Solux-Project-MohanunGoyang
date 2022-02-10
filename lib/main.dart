@@ -45,7 +45,7 @@ class Splash extends StatelessWidget {
       'neutering': true,
       'picture': 'cat1.jpg',
       'date': '2021.01.14',
-      'gender': 'male',
+      'gender': 'male',  
       'age': '모름',
       'like': true,
       'characteristic': '사람 손을 잘 타요',

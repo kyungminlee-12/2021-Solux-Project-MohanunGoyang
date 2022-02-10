@@ -25,7 +25,7 @@ class _LikeScreenState extends State<LikeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold( 
-        appBar: AppBar(
+        appBar: AppBar( 
           backgroundColor: const Color(0xff5A483F),
           title: Text("서울시 용산구 청파동"),
         ),
