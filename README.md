@@ -6,7 +6,7 @@
 ![슬라이드3](https://user-images.githubusercontent.com/64300626/161085848-7aefe3c1-8012-4571-931d-550d06342fab.JPG)
 ![슬라이드4](https://user-images.githubusercontent.com/64300626/161085867-e71b5796-04d8-446c-baf3-c237bebabaed.JPG)
 
-⚒ 기술 스택
+## ⚒ 기술 스택
 * flutter
 * firebase
 * slack
